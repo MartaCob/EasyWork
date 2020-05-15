@@ -1,0 +1,62 @@
+package com.example.easywork;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+
+import android.content.Intent;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+
+import com.example.easywork.ui.login.LoginActivity;
+
+public class Register<AVLoadingIndicatorView> extends AppCompatActivity {
+
+
+    AVLoadingIndicatorView register_loader;
+    TextView registerBtn;
+    FrameLayout blur;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.register);
+
+        blur = findViewById(R.id.background_blur_register);
+        register_loader = (AVLoadingIndicatorView) findViewById(R.id.register_loader);
+
+
+
+        registerBtn = findViewById(R.id.register_btn);
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                blur.setBackgroundResource(R.drawable.button_background);
+                try {
+                    register_loader.wait(View.VISIBLE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    register_loader.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+    }
+    public void openLoginPage(View view) {
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+}
+
